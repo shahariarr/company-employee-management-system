@@ -47,9 +47,16 @@ Route::middleware(['auth', 'user-access'])->group(function () {
 All Admin Routes List
 --------------------------------------------
 --------------------------------------------*/
+
+use App\Http\Controllers\AdminController;
+
 Route::middleware(['auth', 'admin-access'])->group(function () {
 
     Route::get('/admin/home', [HomeController::class, 'adminHome'])->name('admin.home');
+
+
+    Route::get('/admin/all_company', [AdminController::class, 'allCompanyProfile'])->name('admin.all_company');
+    Route::get('/admin/all_employee', [AdminController::class, 'allEmployeeProfile'])->name('admin.all_employee');
 });
 
 /*------------------------------------------
