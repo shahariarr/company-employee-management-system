@@ -21,7 +21,13 @@ class EmployeeProfileController extends Controller
 
     public function create()
     {
-        return view('employee_profile.create');
+        $profile = EmployeeProfile::where('user_id', auth()->id())->first();
+        if ($profile !== null) {
+            return view('employee_profile.index', compact('profile'));
+        }else{
+            return view('employee_profile.create');
+        }
+
     }
 
     public function store(Request $request)

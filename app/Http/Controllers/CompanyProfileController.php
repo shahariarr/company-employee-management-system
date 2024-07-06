@@ -18,9 +18,15 @@ class CompanyProfileController extends Controller
         return view('company_profile.index', compact('profile'));
     }
 
+
     public function create()
     {
-        return view('company_profile.create');
+        $profile = Company::where('user_id', auth()->id())->first();
+        if ($profile !== null) {
+            return view('company_profile.index', compact('profile'));
+        } else {
+            return view('company_profile.create');
+        }
     }
 
 
@@ -47,11 +53,18 @@ class CompanyProfileController extends Controller
             'core_values' => 'nullable|string',
         ]);
 
-        if ($request->hasFile('logo')) {
-            $image = $request->file('logo');
-            $fileNameToStore = 'post_image_' . md5((uniqid())) . time() . '.' . $image->getClientOriginalExtension();
-            $image->move(public_path('images'), $fileNameToStore);
+        // if ($request->hasFile('logo')) {
+        //     $image = $request->file('logo');
+        //     $fileNameToStore = 'post_image_' . md5((uniqid())) . time() . '.' . $image->getClientOriginalExtension();
+        //     $image->move(public_path('images'), $fileNameToStore);
+        // }
+        if ($image = $request->file('logo')) {
+            $destinationPath = 'images/';
+            $profileImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
+            $image->move($destinationPath, $profileImage);
+            $data['image'] = "$profileImage";
         }
+
 
         // Add the current user's ID to the data array
         $data['user_id'] = auth()->id();
@@ -65,6 +78,7 @@ class CompanyProfileController extends Controller
     {
         return view('company_profile.edit', compact('companyProfile'));
     }
+
 
     public function update(Request $request, Company $companyProfile)
     {
@@ -89,14 +103,25 @@ class CompanyProfileController extends Controller
             'core_values' => 'nullable|string',
         ]);
 
+        // Initialize $fileNameToStore with the current logo to handle cases where no new logo is uploaded
+        $fileNameToStore = $companyProfile->logo;
+
         if ($request->hasFile('logo')) {
             $image = $request->file('logo');
-            $fileNameToStore = 'post_image_' . md5((uniqid())) . time() . '.' . $image->getClientOriginalExtension();
+            $fileNameToStore = 'post_image_' . md5(uniqid()) . time() . '.' . $image->getClientOriginalExtension();
+
             $image->move(public_path('images'), $fileNameToStore);
 
-            $companyProfile->update($data);
-
-            return redirect()->route('company_profile.index');
+            // Update the logo attribute only if a new file is uploaded
+            $companyProfile->logo = $fileNameToStore;
         }
+
+        // Save changes to the company profile
+        $companyProfile->save();
+
+        // Update the company profile with the validated data
+        $companyProfile->update($data);
+
+        return redirect()->route('company_profile.index');
     }
 }

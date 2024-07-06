@@ -7,7 +7,7 @@
         <div class="container">
             <h1>{{ $profile->company_name }}</h1>
             @if($profile->logo)
-                <img src="{{asset('images/' .$profile->logo) }}" alt="Logo">
+                <img src="{{asset('images/' .$profile->logo) }}" alt="Logo" width="70%">
             @endif
             <p><strong>Userv Id:</strong> {{ $profile->user_id }}</p>
             <p><strong>Tagline:</strong> {{ $profile->tagline }}</p>
