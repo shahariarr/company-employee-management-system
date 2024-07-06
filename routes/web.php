@@ -6,6 +6,11 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\EmployeeProfileController;
+use App\Http\Controllers\FeedbackController;
+use App\Http\Controllers\CompanyProfileController;
+use App\Http\Controllers\AdminController;
+
+
 
 
 /*
@@ -20,16 +25,12 @@ use App\Http\Controllers\EmployeeProfileController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
 
 Auth::routes();
 
-/*------------------------------------------
---------------------------------------------
-All Normal Users Routes List
---------------------------------------------
---------------------------------------------*/
+
 Route::middleware(['auth', 'user-access'])->group(function () {
 
     Route::get('/home', [HomeController::class, 'Employee'])->name('home');
@@ -40,15 +41,19 @@ Route::middleware(['auth', 'user-access'])->group(function () {
     Route::post('employee_profile', [EmployeeProfileController::class, 'store'])->name('employee_profile.store');
     Route::get('employee_profile/edit', [EmployeeProfileController::class, 'edit'])->name('employee_profile.edit');
     Route::put('employee_profile', [EmployeeProfileController::class, 'update'])->name('employee_profile.update');
+
+
+
+    Route::get('feedback', [FeedbackController::class, 'index'])->name('feedback.index');
+    Route::get('feedback/create', [FeedbackController::class, 'create'])->name('feedback.create');
+    Route::post('feedback', [FeedbackController::class, 'store'])->name('feedback.store');
+    Route::get('feedback/{id}/edit', [FeedbackController::class, 'edit'])->name('feedback.edit');
+    Route::put('feedback/{id}', [FeedbackController::class, 'update'])->name('feedback.update');
+    Route::delete('feedback/{id}', [FeedbackController::class, 'destroy'])->name('feedback.destroy');
 });
 
-/*------------------------------------------
---------------------------------------------
-All Admin Routes List
---------------------------------------------
---------------------------------------------*/
 
-use App\Http\Controllers\AdminController;
+
 
 Route::middleware(['auth', 'admin-access'])->group(function () {
 
@@ -59,13 +64,8 @@ Route::middleware(['auth', 'admin-access'])->group(function () {
     Route::get('/admin/all_employee', [AdminController::class, 'allEmployeeProfile'])->name('admin.all_employee');
 });
 
-/*------------------------------------------
---------------------------------------------
-All Admin Routes List
---------------------------------------------
---------------------------------------------*/
 
-use App\Http\Controllers\CompanyProfileController;
+
 
 Route::middleware(['auth', 'manager-access'])->group(function () {
 

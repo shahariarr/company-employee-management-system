@@ -11,7 +11,7 @@ class Company extends Model
 
 
     protected $fillable = [
-        'user_id', 
+        'user_id',
         'company_name',
         'logo',
         'tagline',
@@ -34,5 +34,9 @@ class Company extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+    public function feedbacks()
+    {
+        return $this->hasMany(Feedback::class, 'company_id');
     }
 }

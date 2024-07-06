@@ -6,14 +6,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>@yield('title')</title>
 
+
+
     <!-- Favicon -->
-    <link rel="shortcut icon" href="{{asset('/assets/images/favicon.ico')}}">
-    <link rel="stylesheet" href="{{asset('/assets/css/backend-plugin.min.css')}}">
-    <link rel="stylesheet" href="{{asset('/assets/css/backend.css?v=1.0.0')}}">
-    <link rel="stylesheet" href="{{asset('/assets/vendor/@fortawesome/fontawesome-free/css/all.min.css')}}">
-    <link rel="stylesheet" href="{{asset('/assets/vendor/line-awesome/dist/line-awesome/css/line-awesome.min.css')}}">
-    <link rel="stylesheet" href="{{asset('/assets/vendor/remixicon/fonts/remixicon.css')}}">
+    <link rel="shortcut icon" href="{{ asset('/assets/images/favicon.ico') }}">
+    <link rel="stylesheet" href="{{ asset('/assets/css/backend-plugin.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('/assets/css/backend.css?v=1.0.0') }}">
+    <link rel="stylesheet" href="{{ asset('/assets/vendor/@fortawesome/fontawesome-free/css/all.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('/assets/vendor/line-awesome/dist/line-awesome/css/line-awesome.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('/assets/vendor/remixicon/fonts/remixicon.css') }}">
     @stack('styles')
+
 </head>
 
 <body class="  ">
@@ -65,22 +68,25 @@
         </div>
     </footer>
     <!-- Backend Bundle JavaScript -->
-    <script src="{{asset('/assets/js/backend-bundle.min.js')}}"></script>
+    <script src="{{ asset('/assets/js/backend-bundle.min.js') }}"></script>
 
     <!-- Table Treeview JavaScript -->
-    <script src="{{asset('/assets/js/table-treeview.js')}}"></script>
+    <script src="{{ asset('/assets/js/table-treeview.js') }}"></script>
 
     <!-- Chart Custom JavaScript -->
-    <script src="{{asset('/assets/js/customizer.js')}}"></script>
+    <script src="{{ asset('/assets/js/customizer.js') }}"></script>
 
     <!-- Chart Custom JavaScript -->
-    <script async src="{{asset('/assets/js/chart-custom.js')}}"></script>
+    <script async src="{{ asset('/assets/js/chart-custom.js') }}"></script>
 
     <!-- app JavaScript -->
-    <script src="{{asset('/assets/js/app.js')}}"></script>
+    <script src="{{ asset('/assets/js/app.js') }}"></script>
+
+    {{-- <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" /> --}}
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
 
     @stack('scripts')
 </body>
 
 </html>
-

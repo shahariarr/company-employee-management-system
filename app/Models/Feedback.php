@@ -5,11 +5,26 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Feedback extends Model
+class feedback extends Model
 {
     use HasFactory;
-    public function user()
+
+    protected $fillable = [
+        'employee_id',
+        'company_id',
+        'feedback',
+        'rating',
+    ];
+
+    public function employee()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(EmployeeProfile::class, 'employee_id');
     }
+
+    public function company()
+    {
+        return $this->belongsTo(Company::class, 'company_id');
+    }
+
+
 }

@@ -67,9 +67,9 @@ class User extends Authenticatable
 
     public function employee()
     {
-        return $this->hasOne(Employee::class);
+        return $this->hasOne(EmployeeProfile::class);
     }
-    public function feedback(){
-        return $this->hasOne(Feedback::class);
-    }
+    // public function feedback(){
+    //     return $this->hasOne(Feedback::class);
+    // }
 }
