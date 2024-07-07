@@ -124,4 +124,9 @@ class CompanyProfileController extends Controller
 
         return redirect()->route('company_profile.index');
     }
+    public function feedback($id)
+    {
+        $company = Company::with('feedbacks.employee')->findOrFail($id);
+        return view('company_profile.feedback', compact('company'));
+    }
 }

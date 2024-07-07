@@ -62,6 +62,8 @@ Route::middleware(['auth', 'admin-access'])->group(function () {
 
     Route::get('/admin/all_company', [AdminController::class, 'allCompanyProfile'])->name('admin.all_company');
     Route::get('/admin/all_employee', [AdminController::class, 'allEmployeeProfile'])->name('admin.all_employee');
+    Route::get('/admin/allfeedback', [AdminController::class, 'allfeedback'])->name('feedback.allfeedback');
+
 });
 
 
@@ -76,4 +78,6 @@ Route::middleware(['auth', 'manager-access'])->group(function () {
     Route::post('/company-profile', [CompanyProfileController::class, 'store'])->name('company_profile.store');
     Route::get('/company-profile/{companyProfile}/edit', [CompanyProfileController::class, 'edit'])->name('company_profile.edit');
     Route::put('/company-profile/{companyProfile}', [CompanyProfileController::class, 'update'])->name('company_profile.update');
+    Route::get('/companies/{id}/feedback', [CompanyProfileController::class, 'feedback'])->name('company.feedback');
+
 });
